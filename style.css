@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #f0f0f0;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card {
+  border: 2px solid #333;
+  border-radius: 8px;
+  width: 100px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.card.selected {
+  border-color: red;
+}
