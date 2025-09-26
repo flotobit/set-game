@@ -2,18 +2,19 @@ const features = {
   number: [1, 2, 3],
   shape: ['▲', '●', '■'],
   color: ['red', 'green', 'purple'],
-  shading: ['solid', 'striped', 'open']
 };
 
 let board = [];
 let selected = [];
+let player1Score = 0;
+let player2Score = 0;
+let currentPlayer = 1;
 
 function generateCard() {
   return {
     number: features.number[Math.floor(Math.random() * 3)],
     shape: features.shape[Math.floor(Math.random() * 3)],
     color: features.color[Math.floor(Math.random() * 3)],
-    shading: features.shading[Math.floor(Math.random() * 3)]
   };
 }
 
@@ -22,7 +23,9 @@ function generateBoard() {
   for (let i = 0; i < 12; i++) {
     board.push(generateCard());
   }
+  selected = [];
   renderBoard();
+  updateScoreboard();
 }
 
 function renderBoard() {
@@ -48,18 +51,24 @@ function selectCard(index, element) {
   }
 
   if (selected.length === 3) {
-    if (isSet(selected.map(i => board[i]))) {
-      alert('✅ That is a SET!');
+    const cards = selected.map(i => board[i]);
+    if (isSet(cards)) {
+      alert(`✅ Player ${currentPlayer} found a SET!`);
+      if (currentPlayer === 1) player1Score++;
+      else player2Score++;
     } else {
-      alert('❌ Not a SET!');
+      alert(`❌ Player ${currentPlayer} missed!`);
     }
+    // Switch turns
+    currentPlayer = currentPlayer === 1 ? 2 : 1;
     selected = [];
     renderBoard();
+    updateScoreboard();
   }
 }
 
 function isSet(cards) {
-  const keys = ['number','shape','color','shading'];
+  const keys = ['number', 'shape', 'color'];
   return keys.every(key => {
     const values = cards.map(c => c[key]);
     const allSame = values.every(v => v === values[0]);
@@ -68,5 +77,13 @@ function isSet(cards) {
   });
 }
 
+function updateScoreboard() {
+  document.getElementById('score1').textContent = player1Score;
+  document.getElementById('score2').textContent = player2Score;
+  document.getElementById('turn').textContent = currentPlayer;
+}
+
 document.getElementById('new-game').onclick = generateBoard;
+
 generateBoard();
+
