@@ -1,31 +1,52 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   text-align: center;
   background: #f0f0f0;
 }
 
+h1 {
+  color: #333;
+}
+
+#scoreboard {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
 #game-board {
   display: grid;
-  grid-template-columns: repeat(3, 120px);
-  gap: 10px;
+  grid-template-columns: repeat(4, 120px);
+  gap: 15px;
   justify-content: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .card {
-  border: 2px solid #333;
-  border-radius: 8px;
   width: 100px;
   height: 140px;
+  border-radius: 10px;
+  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background: white;
-  font-weight: bold;
-  font-size: 18px;
+  border: 3px solid #333;
+  font-size: 28px;
+  transition: transform 0.1s, border-color 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card.selected {
   border-color: red;
 }
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
